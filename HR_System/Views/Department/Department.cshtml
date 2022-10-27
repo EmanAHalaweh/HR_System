@@ -1,0 +1,55 @@
+﻿@model Department
+@{
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+@section body{
+
+    <form method="post">
+
+        <input type="hidden" asp-for="Id" readonly />
+        <div class="row" style="margin-top:10px">
+            <div class="col-xs-1 ">
+                <h4>  <span>Department</span></h4>
+            </div>
+        </div>
+        <div class="row" style="margin-top:10px">
+            <div class="col-xs-1 ">
+                <span>Name</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" asp-for="name" />
+            </div>
+
+            <div class="col-xs-1">
+                <span asp-validation-for="name"></span>
+            </div>
+
+            <div class="col-xs-1 ">
+                <span>Description</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" asp-for="Description" />
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:10px">
+            <div class="col-xs-10" style="text-align:right">
+
+
+
+                @if ((bool)ViewData["isEdit"] == false)
+                {
+                    <input type="submit" value="save" class="btn btn-primary" asp-action="save" />
+                }
+                else
+                {
+                    <input type="submit" value="Update" class="btn btn-primary" asp-action="Update" />
+                }
+
+            </div>
+        </div>
+    </form>
+
+                 
+}
+

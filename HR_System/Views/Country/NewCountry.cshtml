@@ -1,0 +1,68 @@
+﻿@model vmCountry
+@{
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+@section body{
+    <form method="post">
+
+
+        <div class="row" style="margin-top:10px">
+            <div class="col-xs-12">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Name</th>
+                           
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Country item in Model.liCountry)
+                        {
+                            <tr>
+                                <td>@item.code</td>
+                                <td>@item.name</td>
+                            
+                            </tr>
+                        }
+                    </tbody>
+
+
+
+                    
+                </table>
+                </div>
+
+            </div>
+
+            <div class="row" style="margin-top:10px">
+                <div class="col-xs-1">
+                    <span>code</span>
+                </div>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" asp-for="count.code" />
+                </div>
+
+            </div>
+            <div class="row" style="margin-top:10px">
+                <div class="col-xs-1">
+                    <span>Name</span>
+                </div>
+                <div class="col-xs-6">
+                    <input type="text" class="form-control" asp-for="count.name" />
+                </div>
+
+                <div class="col-xs-1">
+                    <span asp-validation-for="count.name"></span>
+                </div>
+
+                <div class="col-xs-2">
+                    <input type="submit" value="Save" class="btn btn-primary" asp-action="Save">
+
+                </div>
+            </div>
+
+    </form>
+
+}

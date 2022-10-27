@@ -1,0 +1,83 @@
+﻿@model vmCountry
+@{
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+@section body{
+    <form method="post">
+
+        <div class="row" style="margin-top:10px">
+            <div class="col-xs-12">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Code of Country</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (City item in Model.licity)
+                        {
+                            <tr>
+                                <td>@item.code</td>
+                                <td>@item.name</td>
+                                <td>@item.countryId</td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div class="row" style="margin-top:10px">
+            <div class="col-xs-1">
+                <span>code</span>
+            </div>
+            <div class="col-xs-6">
+                <input type="text" class="form-control" asp-for="city.code" />
+            </div>
+
+        </div>
+        <div class="row" style="margin-top:10px">
+            <div class="col-xs-1">
+                <span>Name</span>
+            </div>
+            <div class="col-xs-6">
+                <input type="text" class="form-control" asp-for="city.name" />
+            </div>
+
+            <div class="col-xs-1">
+                <span asp-validation-for="city.name"></span>
+            </div>
+
+            <div class="col-xs-6">
+                <div class="col-xs-2">
+                    <span>Country Name</span>
+                </div>
+
+
+                <div class="col-xs-7">
+                    <select class="form-control" asp-for="city.countryId" asp-items='new SelectList(Model.liCountry ,"Id","name")'></select>
+                </div>
+                <div class="col-xs-1">
+                    <span></span>
+                </div>
+
+            </div>
+            <div class="row" style="margin-top:10px">
+                <div class="col-xs-2">
+                    <input type="submit" value="Save" class="btn btn-primary" asp-action="Save">
+
+                </div>
+            </div>
+
+
+
+
+
+</form>
+}
+

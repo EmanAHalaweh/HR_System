@@ -1,0 +1,206 @@
+﻿@model vmEmployee
+@{
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+@section head{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $("#ddlcountry").change(function () {
+                $.ajax({
+                    type: 'get',
+                    url: '/HR_System/Employee/loadCity?countcode=' + $("#ddlcountry").val(),
+                    success: function (data) {
+                        $("#city option").remove();
+                        $(data).each(function () {
+                          
+                            $("#city").append("<option value=" + $(this).prop('Id') + ">" +$(this).prop('name')+"</option>");
+                            
+
+                        })
+                    }
+                    , error: function (error) {
+                       
+                        alert("Loading cities has error")
+                    }
+
+                })
+            })
+        })
+    </script>
+}
+@section body{
+
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="employee.Id" readonly />
+
+        <div class="row" style="margin-top:10px">
+            <div class="col-xs-1 ">
+                <span>First Name</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" asp-for="employee.Fname" />
+            </div>
+            <div class="col-xs-1">
+                <span asp-validation-for="employee.Fname"></span>
+            </div>
+            <div class="col-xs-1">
+                <span>Last Name</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" asp-for="employee.Lname" />
+            </div>
+            <div class="col-xs-2">
+                <span asp-validation-for="employee.Lname"></span>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="row" style="margin-top:10px ;clear:left">
+            <div class="col-xs-1">
+                <span>Phone</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" asp-for="employee.Phone" />
+            </div>
+            <div class="col-xs-1">
+                <span></span>
+            </div>
+            <div class="col-xs-1">
+                <span>Gender</span>
+            </div>
+            <div class="col-xs-3">
+                <select class="form-control" asp-for="employee.gender">
+                    <option value="1"> Male</option>
+                    <option value="2"> Female</option>
+                </select>
+            </div>
+            <div class="col-xs-2">
+                <span></span>
+            </div>
+
+        </div>
+
+        <div class="row" style="margin-top:10px">
+            <div class="col-xs-1">
+                <span>Country</span>
+            </div>
+            <div class="col-xs-3">
+                <select class="form-control" id="ddlcountry" asp-for="employee.countryId" asp-items='new SelectList(Model.liCountry ,"Id","name")'>  <option value="0"> select country...</option></select>
+            </div>
+            <div class="col-xs-1">
+                <span></span>
+            </div>
+            <div class="col-xs-1">
+                <span>City</span>
+            </div>
+            <div class="col-xs-3">
+                <select id="city" class="form-control" asp-for="employee.cityId"> </select>
+                @*asp-items='new SelectList(Model.liCity ,"Id","name")'*@
+            </div>
+
+            <div class="col-xs-1">
+                <span></span>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:10px">
+            <div class="col-xs-1 ">
+                <span>Address</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" asp-for="employee.address" />
+            </div>
+            <div class="col-xs-1">
+                <span></span>
+            </div>
+            <div class="col-xs-1">
+                <span>Email</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="email" class="form-control" asp-for="employee.email" />
+            </div>
+            <div class="col-xs-2">
+                <span></span>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top:10px">
+            <div class="col-xs-1 ">
+                <span>Salary</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" asp-for="employee.salary" />
+            </div>
+            <div class="col-xs-1">
+                <span></span>
+            </div>
+            <div class="col-xs-1">
+                <span>Expectd Salary</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="text" class="form-control" asp-for="employee.ExpectedSalary" />
+            </div>
+            <div class="col-xs-2">
+                <span></span>
+            </div>
+        </div>
+
+
+        <div class="row" style="margin-top:10px">
+            <div class="col-xs-1">
+                <span>Department</span>
+            </div>
+            <div class="col-xs-3">
+                <select class="form-control" asp-for="employee.depId" asp-items='new SelectList(Model.liDepartment ,"Id","name")'></select>
+            </div>
+            <div class="col-xs-1">
+                <span></span>
+            </div>
+            <div class="col-xs-1">
+                <span>Hire Date</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="date" class="form-control" asp-for="employee.hireDate" />
+            </div>
+            <div class="col-xs-1">
+                <span></span>
+            </div>
+        </div>
+        <div class="row" style="margin-top:10px">
+
+            <div class="col-xs-1">
+                <span>ImageURL</span>
+            </div>
+            <div class="col-xs-3">
+                <label for="uimg" class="btn btn-primary">Choose File</label>
+                <input type="file" id="uimg" asp-for="employee.Image" style="display:none" />
+            </div>
+
+        </div>
+
+
+        <div class="row" style="margin-top:10px">
+            <div class="col-xs-10" style="text-align:right">
+
+                @if ((bool)ViewData["isEdit"] == false)
+                {
+                    <input type="submit" value="save" class="btn btn-primary" asp-action="save" />
+                }
+                else
+                {
+                    <input type="submit" value="Update" class="btn btn-primary" asp-action="Update" />
+                }
+
+            </div>
+        </div>
+
+
+
+    </form>
+}
